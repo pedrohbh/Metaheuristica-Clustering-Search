@@ -3,6 +3,7 @@ package grafo;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -42,18 +43,19 @@ public class Grafo
     
     public void leDados()
     {
-      /*  try
+        try
         {
             while ( input.hasNext() )
             {
-                nomeInstancia = input.nextLine();
-                //nomeInstancia = nomeInstancia.
-                //nomeInstancia = nomeInstancia.substring(7);
-                //System.out.println("Nome: " + nomeInstancia);
+                Pattern expressaoNome = Pattern.compile("NAME[ ]*:[ ]*\\w+");
+                Pattern expressaoDimensao = Pattern.compile("DIMENSION[ ]*:[ ]*\\d+");
+                
             }
         }
-        catch*/
-                
+        catch ( Exception e )
+        {
+            System.exit(1);
+        }
     }
     
     /**
