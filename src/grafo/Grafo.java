@@ -1,3 +1,9 @@
+package grafo;
+
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.Scanner;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,12 +17,45 @@
 public class Grafo 
 {
     
+    private static Scanner input;
+    
     private String nomeInstancia; // Nome da instância do problema
     private int dimensao;
     private int capacidade;
+    private Aresta []arestas;
     
     
 
+    
+    public void abreArquivo( String nomeArquivo )
+    {
+        try
+        {
+            input = new Scanner(Paths.get(nomeArquivo));
+        }
+        catch ( IOException e )
+        {
+            System.err.println("Erro ao abrir o arquivo \"" + nomeArquivo + "\". Verifique se o mesmo existe ou está correto. Encerrando o programa...");
+            System.exit( 1 );
+        }
+    }
+    
+    public void leDados()
+    {
+      /*  try
+        {
+            while ( input.hasNext() )
+            {
+                nomeInstancia = input.nextLine();
+                //nomeInstancia = nomeInstancia.
+                //nomeInstancia = nomeInstancia.substring(7);
+                //System.out.println("Nome: " + nomeInstancia);
+            }
+        }
+        catch*/
+                
+    }
+    
     /**
      * @return the nomeInstancia
      */
@@ -57,6 +96,20 @@ public class Grafo
      */
     public void setCapacidade(int capacidade) {
         this.capacidade = capacidade;
+    }
+
+    /**
+     * @return the arestas
+     */
+    public Aresta[] getArestas() {
+        return arestas;
+    }
+
+    /**
+     * @param arestas the arestas to set
+     */
+    public void setArestas(Aresta[] arestas) {
+        this.arestas = arestas;
     }
     
     
