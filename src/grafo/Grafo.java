@@ -26,7 +26,7 @@ public class Grafo
     private int dimensao;
     private int capacidade;
     private List<Integer> depositos = new LinkedList<>();
-    private Vertice [][]verticesGrafo;
+    private Vertice []verticesGrafo;
     
     
     public void calculaDimensao( int vertice, int x, int y )
@@ -34,7 +34,7 @@ public class Grafo
         
     }
     
-    private void processaEntrada(String palavraChave, String linha, int atribuicao )
+    private int processaEntrada(String palavraChave, String linha, int atribuicao )
     {
         String []tokens = linha.split("\\s+");
         
@@ -43,6 +43,7 @@ public class Grafo
             if ( !token.equals(palavraChave) && !token.equals(":") )
                 atribuicao = Integer.parseInt(token);
         }
+        return atribuicao;
     }
 
     
@@ -80,24 +81,28 @@ public class Grafo
                     }
                 }
                 else if ( linha.contains("DIMENSION") )
-                    processaEntrada("DIMENSION", linha, this.dimensao );
+                    this.dimensao = processaEntrada("DIMENSION", linha, this.dimensao );
                 else if ( linha.contains("CAPACITY") )
-                    processaEntrada("CAPACITY", linha, this.capacidade );
+                    this.capacidade = processaEntrada("CAPACITY", linha, this.capacidade );
                 else if ( linha.contains("NODE_COORD_SECTION") )
                 {
-                    verticesGrafo = new Vertice[dimensao][dimensao];
+                    verticesGrafo = new Vertice[dimensao];
                     
                     for ( int i = 0; i < dimensao; i++ )
                     {
-                        verticesGrafo[ i ][ i ].setId( input.nextInt() );
-                        verticesGrafo[ i ][ i ].setCordenadaX(  input.nextInt() );
-                        verticesGrafo[ i ][ i ].setCordenadaY( input.nextInt() );
+                        Vertice novoVertice = new Vertice();
+                        novoVertice.setId( input.nextInt() );
+                        novoVertice.setCordenadaX( input.nextInt() );
+                        novoVertice.setCordenadaY( input.nextInt() );
+                        verticesGrafo[ i ] = novoVertice;
                     }
                 }
                 else if ( linha.contains("DEMAND_SECTION") )
                 {
                     for ( int i = 0; i < dimensao; i++ )
-                        verticesGrafo[ i ][ i ].setDemanda( input.nextInt() );
+                    {
+                        getVerticesGrafo()[ input.nextInt() - 1 ].setDemanda( input.nextInt() );
+                    }
                 }
                 else if ( linha.contains("DEPOT_SECTION") )
                 {
@@ -228,5 +233,12 @@ public class Grafo
     public void setCapacidade(int capacidade) {
         this.capacidade = capacidade;
     } 
+
+    /**
+     * @return the verticesGrafo
+     */
+    public Vertice[] getVerticesGrafo() {
+        return verticesGrafo;
+    }
     
 }

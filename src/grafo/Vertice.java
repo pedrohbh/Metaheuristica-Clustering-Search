@@ -15,6 +15,11 @@ public class Vertice
     private int demanda;
     private int cordenadaX;
     private int cordenadaY;
+    
+    public void imprimeDados()
+    {
+        System.out.printf("%d\t%d\t%d\t%d%n", id, demanda, cordenadaX, cordenadaY );
+    }
 
     /**
      * @return the demanda

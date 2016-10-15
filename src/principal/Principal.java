@@ -6,6 +6,7 @@
 package principal;
 
 import grafo.Grafo;
+import grafo.Vertice;
 
 /**
  *
@@ -19,6 +20,11 @@ public class Principal
         
         g.abreArquivo("Entrada/A-n33-k5.vrp");
         g.leDados();
+        
+        System.out.printf("ID\tDemanda\tCordenada X\tCordenada Y%n");
+        Vertice []v = g.getVerticesGrafo();
+        for ( int i = 0; i < g.getDimensao(); i++ )
+            v[ i ].imprimeDados();
         
     }
     
