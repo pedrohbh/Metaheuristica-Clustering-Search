@@ -25,13 +25,31 @@ public class Grafo
     private String nomeInstancia; // Nome da instância do problema
     private int dimensao;
     private int capacidade;
-    private List<Integer> depositos = new LinkedList<>();
+    private final List<Integer> depositos = new LinkedList<>();
     private Vertice []verticesGrafo;
+    private int [][]distancias;
     
     
-    public void calculaDimensao( int vertice, int x, int y )
-    {
+    private void calculaDistancias()
+    { 
+        distancias = new int[ dimensao ][ dimensao ];
+        int N = dimensao;
+        int xd;
+        int yd;
+        for ( int i = 0; i < N; i++ )
+        {
+            for ( int j = 0; j < N; j++ )
+            {
+                xd = verticesGrafo[ i ].getCordenadaX() - verticesGrafo[ j ].getCordenadaX();
+                yd = verticesGrafo[ i ].getCordenadaY() - verticesGrafo[ j ].getCordenadaY();
+                distancias[ i ][ j ] = (int) Math.sqrt(xd*xd + yd*yd );                
+//                System.out.printf("%d ", getDistancias()[ i ][ j ] );
+            }
+//            System.out.printf("%n");
+        }
         
+        //for ( int i = 0; i < N; i++ )
+            
     }
     
     private int processaEntrada(String palavraChave, String linha, int atribuicao )
@@ -114,6 +132,8 @@ public class Grafo
                     }
                 }               
             }
+            
+            calculaDistancias();
         }
         catch ( NoSuchElementException e )
         {
@@ -239,6 +259,13 @@ public class Grafo
      */
     public Vertice[] getVerticesGrafo() {
         return verticesGrafo;
+    }
+
+    /**
+     * @return the distancias
+     */
+    public int[][] getDistancias() {
+        return distancias;
     }
     
 }
