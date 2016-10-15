@@ -2,8 +2,10 @@ package grafo;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -23,9 +25,25 @@ public class Grafo
     private String nomeInstancia; // Nome da instância do problema
     private int dimensao;
     private int capacidade;
-    private Aresta []arestas;
+    private List<Integer> depositos = new LinkedList<>();
+    private Vertice [][]verticesGrafo;
     
     
+    public void calculaDimensao( int vertice, int x, int y )
+    {
+        
+    }
+    
+    private void processaEntrada(String palavraChave, String linha, int atribuicao )
+    {
+        String []tokens = linha.split("\\s+");
+        
+        for ( String token : tokens )
+        {
+            if ( !token.equals(palavraChave) && !token.equals(":") )
+                atribuicao = Integer.parseInt(token);
+        }
+    }
 
     
     public void abreArquivo( String nomeArquivo )
@@ -43,12 +61,123 @@ public class Grafo
     
     public void leDados()
     {
+        String linha;
+        //String []tokens;
         try
         {
             while ( input.hasNext() )
             {
-                Pattern expressaoNome = Pattern.compile("NAME[ ]*:[ ]*\\w+");
-                Pattern expressaoDimensao = Pattern.compile("DIMENSION[ ]*:[ ]*\\d+");
+                linha = input.nextLine();
+                
+                if ( linha.contains("NAME") )
+                {
+                     String []tokens = linha.split("\\s+");
+        
+                    for ( String token : tokens )
+                    {
+                        if ( !token.equals("NAME") && !token.equals(":") )
+                            nomeInstancia = token;
+                    }
+                }
+                else if ( linha.contains("DIMENSION") )
+                    processaEntrada("DIMENSION", linha, this.dimensao );
+                else if ( linha.contains("CAPACITY") )
+                    processaEntrada("CAPACITY", linha, this.capacidade );
+                else if ( linha.contains("NODE_COORD_SECTION") )
+                {
+                    verticesGrafo = new Vertice[dimensao][dimensao];
+                    
+                    for ( int i = 0; i < dimensao; i++ )
+                    {
+                        verticesGrafo[ i ][ i ].setId( input.nextInt() );
+                        verticesGrafo[ i ][ i ].setCordenadaX(  input.nextInt() );
+                        verticesGrafo[ i ][ i ].setCordenadaY( input.nextInt() );
+                    }
+                }
+                else if ( linha.contains("DEMAND_SECTION") )
+                {
+                    for ( int i = 0; i < dimensao; i++ )
+                        verticesGrafo[ i ][ i ].setDemanda( input.nextInt() );
+                }
+                else if ( linha.contains("DEPOT_SECTION") )
+                {
+                    int valor = input.nextInt();
+                    while ( valor != -1 )
+                    {
+                        depositos.add(valor);
+                        valor = input.nextInt();
+                    }
+                }               
+            }
+        }
+        catch ( NoSuchElementException e )
+        {
+            System.err.println("O arquivo de entrada não possui o formato de entrada esperado.");
+            System.exit( 1 );
+        }
+        catch ( IllegalStateException e )
+        {
+            System.err.println("O arquivo de entrada não pode ser lido");
+            System.exit( 1 );
+        }
+    }
+    
+    /*public void leDados()
+    {
+        try
+        {
+            //String linha;
+            while ( input.hasNext() )
+            {
+                // Nome
+                input.next();
+                input.next();
+                nomeInstancia = input.next();
+                
+                // Pula Comentário e Tipo
+                input.nextLine();
+                input.nextLine();
+                
+                // Dimensão
+                dimensao = input.nextInt();
+                verticesGrafo = new Vertice[dimensao][dimensao];
+                
+                // Pula Tipo 
+                input.nextLine();
+                
+                // Capacidade
+                capacidade = input.nextInt();
+                
+                // Cordenadas
+                input.nextLine();
+                for ( int i = 0; i < dimensao; i++ )
+                {
+                    verticesGrafo[ i ][ i ].setId( input.nextInt() );
+                    verticesGrafo[ i ][ i ].setCordenadaX( input.nextInt() );
+                    verticesGrafo[ i ][ i ].setCordenadaY( input.nextInt() );
+                }
+                
+                // Demanda
+                input.nextLine();
+                for ( int i = 0; i < dimensao; i++ )
+                {
+                    input.nextInt();
+                    verticesGrafo[ i ][ i ].setDemanda( input.nextInt() );
+                }
+                
+                // Depósito
+                input.nextLine();
+                while ( true )
+                {
+                    int num = input.nextInt();
+                    if ( num == -1 )
+                        break;
+                    
+                    depositos.add(num);
+                }
+                
+                input.nextLine();
+                
                 
             }
         }
@@ -56,7 +185,7 @@ public class Grafo
         {
             System.exit(1);
         }
-    }
+    }*/
     
     /**
      * @return the nomeInstancia
@@ -98,22 +227,6 @@ public class Grafo
      */
     public void setCapacidade(int capacidade) {
         this.capacidade = capacidade;
-    }
-
-    /**
-     * @return the arestas
-     */
-    public Aresta[] getArestas() {
-        return arestas;
-    }
-
-    /**
-     * @param arestas the arestas to set
-     */
-    public void setArestas(Aresta[] arestas) {
-        this.arestas = arestas;
-    }
-    
-    
+    } 
     
 }
