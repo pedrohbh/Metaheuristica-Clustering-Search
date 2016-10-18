@@ -59,19 +59,7 @@ public class Grafo
         s0.adicionaCaminhao(novoCaminhao);
         
         s0.imprimeCaminhoes();
-        System.out.println("Custo total da solução: " + s0.getCustoTotal() );
-        
-        /*int []demandas = new int[verticesGrafo.length];
-        /*for ( int i = 0; i < verticesGrafo.length; i++ )
-            System.out.println(verticesGrafo[ i ].getId() + " = " + verticesGrafo[ i ].getDemanda() + " Cordenadas: " + verticesGrafo[ i ].getCordenadaX() + " " + verticesGrafo[ i ].getCordenadaY());
-        
-        System.out.println("--------------------");
-        for ( int i = 0; i < verticesGrafo.length; i++ )
-            System.out.println(v[ i ].getId() + " = " + v[ i ].getDemanda() );
-            //v[ i ] = verticesGrafo[ i ].getDemanda();
-        
-        //*/
-        
+        System.out.println("Custo total da solução: " + s0.getCustoTotal() );   
         
         return s0;
     }
