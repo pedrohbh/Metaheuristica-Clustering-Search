@@ -20,6 +20,7 @@ public class Principal
         
         g.abreArquivo("Entrada/A-n33-k5.vrp");
         g.leDados();
+        g.geraSolucaoInicial();
         
         //System.out.println("DDDDD: " + g.getDistancias()[ 0 ][ 6 ] );
         /*System.out.printf("ID\tDemanda\tCordenada X\tCordenada Y%n");

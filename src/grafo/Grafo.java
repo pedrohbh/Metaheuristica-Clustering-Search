@@ -2,10 +2,12 @@ package grafo;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import metaheuristica.Solucao;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -28,6 +30,53 @@ public class Grafo
     private final List<Integer> depositos = new LinkedList<>();
     private Vertice []verticesGrafo;
     private int [][]distancias;
+    
+    
+    public Solucao geraSolucaoInicial()
+    {
+        boolean sucessoAdicionarRota = true;
+        Solucao s0 = new Solucao();
+        Vertice []v = new Vertice[ verticesGrafo.length ];
+        System.arraycopy(verticesGrafo, 0, v, 0, verticesGrafo.length );
+        Arrays.sort(v);
+        int sentinelaRota = 0;
+        
+        Caminhao novoCaminhao = new Caminhao();
+        while ( sentinelaRota < v.length )
+        {
+            sucessoAdicionarRota = novoCaminhao.adicionaRota(v[ sentinelaRota ], capacidade, distancias );
+            if ( sucessoAdicionarRota )
+            {
+                sentinelaRota++;
+                if ( sentinelaRota == v.length )
+                    s0.adicionaCaminhao(novoCaminhao);
+            }
+            else
+            {
+                s0.adicionaCaminhao(novoCaminhao);
+                novoCaminhao = new Caminhao();
+            }
+            
+            
+        }
+        
+        s0.imprimeCaminhoes();
+        System.out.println("Custo total da solução: " + s0.getCustoTotal() );
+        
+        /*int []demandas = new int[verticesGrafo.length];
+        /*for ( int i = 0; i < verticesGrafo.length; i++ )
+            System.out.println(verticesGrafo[ i ].getId() + " = " + verticesGrafo[ i ].getDemanda() + " Cordenadas: " + verticesGrafo[ i ].getCordenadaX() + " " + verticesGrafo[ i ].getCordenadaY());
+        
+        System.out.println("--------------------");
+        for ( int i = 0; i < verticesGrafo.length; i++ )
+            System.out.println(v[ i ].getId() + " = " + v[ i ].getDemanda() );
+            //v[ i ] = verticesGrafo[ i ].getDemanda();
+        
+        //*/
+        
+        
+        return s0;
+    }
     
     
     private void calculaDistancias()
@@ -147,70 +196,6 @@ public class Grafo
         }
     }
     
-    /*public void leDados()
-    {
-        try
-        {
-            //String linha;
-            while ( input.hasNext() )
-            {
-                // Nome
-                input.next();
-                input.next();
-                nomeInstancia = input.next();
-                
-                // Pula Comentário e Tipo
-                input.nextLine();
-                input.nextLine();
-                
-                // Dimensão
-                dimensao = input.nextInt();
-                verticesGrafo = new Vertice[dimensao][dimensao];
-                
-                // Pula Tipo 
-                input.nextLine();
-                
-                // Capacidade
-                capacidade = input.nextInt();
-                
-                // Cordenadas
-                input.nextLine();
-                for ( int i = 0; i < dimensao; i++ )
-                {
-                    verticesGrafo[ i ][ i ].setId( input.nextInt() );
-                    verticesGrafo[ i ][ i ].setCordenadaX( input.nextInt() );
-                    verticesGrafo[ i ][ i ].setCordenadaY( input.nextInt() );
-                }
-                
-                // Demanda
-                input.nextLine();
-                for ( int i = 0; i < dimensao; i++ )
-                {
-                    input.nextInt();
-                    verticesGrafo[ i ][ i ].setDemanda( input.nextInt() );
-                }
-                
-                // Depósito
-                input.nextLine();
-                while ( true )
-                {
-                    int num = input.nextInt();
-                    if ( num == -1 )
-                        break;
-                    
-                    depositos.add(num);
-                }
-                
-                input.nextLine();
-                
-                
-            }
-        }
-        catch ( Exception e )
-        {
-            System.exit(1);
-        }
-    }*/
     
     /**
      * @return the nomeInstancia

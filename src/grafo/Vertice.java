@@ -9,7 +9,7 @@ package grafo;
  *
  * @author administrador
  */
-public class Vertice 
+public class Vertice implements Comparable<Vertice>
 {
     private int id;
     private int demanda;
@@ -75,6 +75,13 @@ public class Vertice
      */
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public int compareTo(Vertice o) 
+    {
+        return -(this.demanda - o.demanda);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
