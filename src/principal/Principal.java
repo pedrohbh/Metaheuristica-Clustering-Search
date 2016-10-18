@@ -6,7 +6,6 @@
 package principal;
 
 import grafo.Grafo;
-import grafo.Vertice;
 
 /**
  *
@@ -20,6 +19,7 @@ public class Principal
         
         g.abreArquivo("Entrada/A-n33-k5.vrp");
         g.leDados();
+        //g.imprimeTabelaDistancias();
         g.geraSolucaoInicial();
         
         //System.out.println("DDDDD: " + g.getDistancias()[ 0 ][ 6 ] );

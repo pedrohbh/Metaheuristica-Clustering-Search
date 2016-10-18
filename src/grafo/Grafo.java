@@ -51,6 +51,8 @@ public class Grafo
             }
             else
             {
+                novoCaminhao.adicionaRetornoARota(distancias);
+                //novoCaminhao.adicionaRota(v, capacidade, distancias, depositos)
                 s0.adicionaCaminhao(novoCaminhao);
                 novoCaminhao = new Caminhao();
             }          
@@ -237,6 +239,18 @@ public class Grafo
      */
     public int[][] getDistancias() {
         return distancias;
+    }
+    
+    public void imprimeTabelaDistancias()
+    {
+        for ( int i = 0; i < distancias.length; i++ )
+        {
+            for ( int j = 0; j < distancias.length; j++ )
+            {
+                System.out.printf("%d ", distancias[ i ][ j ] );
+            }
+            System.out.println("");
+        }
     }
     
 }

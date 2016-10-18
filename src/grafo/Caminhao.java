@@ -29,6 +29,13 @@ public class Caminhao
         }
         System.out.printf("Carga: %d - custoRota: %d%n", cargaTotal, custoRota );
     }
+    
+    public void adicionaRetornoARota( int [][]tabelaDeCustos )
+    {
+        //System.out.println("Custo atual: " + custoRota + " tabela: " + tabelaDeCustos[ rota.get(rota.size() -1) -1 ][ rota.get( 0 ) - 1 ] + " x: " + (rota.get(rota.size() -1) -1) + " y: " + (rota.get( 0 ) - 1));
+        custoRota += tabelaDeCustos[ rota.get(rota.size() -1) -1 ][ rota.get( 0 ) - 1 ];
+        rota.add( rota.get( 0 ) );
+    }
 
     public boolean adicionaRota( Vertice v, int capacidade, int [][]tabelaCustos, List<Integer> depositos )
     {
