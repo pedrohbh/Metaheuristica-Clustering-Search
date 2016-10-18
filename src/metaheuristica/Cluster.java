@@ -20,8 +20,25 @@ public class Cluster
     public Cluster()
     {
         volume = 0;
+        centro = null;
     }
-
+    
+    public void adicionaNovaSolucao( Solucao s0 )
+    {
+        if ( centro == null )
+        {
+            centro = s0;
+            volume += 1;
+            solucoes.add(s0);
+        }
+        else
+        {
+            if ( s0.getCustoTotal() < centro.getCustoTotal() )
+                centro = s0;
+            solucoes.add(s0);
+        }       
+        
+    }
     /**
      * @return the volume
      */
