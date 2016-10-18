@@ -47,18 +47,16 @@ public class Grafo
             sucessoAdicionarRota = novoCaminhao.adicionaRota(v[ sentinelaRota ], capacidade, distancias );
             if ( sucessoAdicionarRota )
             {
-                sentinelaRota++;
-                if ( sentinelaRota == v.length )
-                    s0.adicionaCaminhao(novoCaminhao);
+                sentinelaRota++;                
             }
             else
             {
                 s0.adicionaCaminhao(novoCaminhao);
                 novoCaminhao = new Caminhao();
-            }
-            
+            }          
             
         }
+        s0.adicionaCaminhao(novoCaminhao);
         
         s0.imprimeCaminhoes();
         System.out.println("Custo total da solução: " + s0.getCustoTotal() );
