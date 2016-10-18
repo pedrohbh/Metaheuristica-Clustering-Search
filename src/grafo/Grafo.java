@@ -44,7 +44,7 @@ public class Grafo
         Caminhao novoCaminhao = new Caminhao();
         while ( sentinelaRota < v.length )
         {
-            sucessoAdicionarRota = novoCaminhao.adicionaRota(v[ sentinelaRota ], capacidade, distancias );
+            sucessoAdicionarRota = novoCaminhao.adicionaRota(v[ sentinelaRota ], capacidade, distancias, depositos );
             if ( sucessoAdicionarRota )
             {
                 sentinelaRota++;                

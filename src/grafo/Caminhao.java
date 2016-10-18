@@ -30,16 +30,27 @@ public class Caminhao
         System.out.printf("Carga: %d - custoRota: %d%n", cargaTotal, custoRota );
     }
 
-    public boolean adicionaRota( Vertice v, int capacidade, int [][]tabelaCustos )
+    public boolean adicionaRota( Vertice v, int capacidade, int [][]tabelaCustos, List<Integer> depositos )
     {
         if ( cargaTotal + v.getDemanda() <= capacidade )
         {
             cargaTotal += v.getDemanda();
             if ( rota.isEmpty() )
             {
-                rota.add( 1 );
+                int max = tabelaCustos[ 0 ][ v.getId() - 1 ];
+                int maxId = 1;
+                for ( Integer d : depositos )
+                {
+                    if ( max < tabelaCustos[ d - 1 ][ v.getId() - 1 ] )
+                    {
+                        max = tabelaCustos[ d - 1 ][ v.getId() - 1 ];
+                        maxId = d;
+                    }
+                }
+                
+                rota.add( maxId );
                 rota.add(v.getId());
-                custoRota += tabelaCustos[ 0 ][ v.getId() - 1 ];
+                custoRota += tabelaCustos[ maxId - 1 ][ v.getId() - 1 ];
             }
             else
             {
