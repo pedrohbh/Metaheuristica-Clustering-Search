@@ -51,4 +51,32 @@ public class Principal
         //System.out.println("CS: " + cs.getClusters().size() );
     }
     
+    
+    public void replicaTestadora( String arquivoEntrada )
+    {
+        Grafo g = new Grafo();
+        ClusteringSearch cs = new ClusteringSearch();
+        Cluster novoCluster = new Cluster();
+        Solucao solucaoInicial;
+        Solucao solucaoVizinha;
+        Solucao solucaoFinal = new Solucao();
+        g.abreArquivo(arquivoEntrada);
+        g.leDados();
+        solucaoInicial = g.geraSolucaoInicial();
+        novoCluster.adicionaNovaSolucao(solucaoInicial);
+        cs.adicionaCluster(novoCluster);        
+        
+        // Criação dos Clusters inciais
+        for ( int i = 0; i < Constantes.MAX_NUM_CLUSTERS - 1; i++ )
+        {
+            novoCluster = new Cluster();
+            solucaoVizinha = g.embaralhaSolucao(solucaoInicial);
+            novoCluster.adicionaNovaSolucao(solucaoInicial);
+            cs.adicionaCluster(novoCluster);            
+        }
+        
+        solucaoFinal = cs.executarSimulatedAnneling(g, solucaoInicial);
+        System.out.println("Custo solução final: " + solucaoFinal.getCustoTotal() );
+    }
+    
 }
