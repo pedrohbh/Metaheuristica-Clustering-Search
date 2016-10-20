@@ -5,6 +5,7 @@
  */
 package metaheuristica;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public class Cluster 
 {
-    private List<Solucao> solucoes;
+    private List<Solucao> solucoes = new LinkedList<>();
     private Solucao centro; // Corresponde a solução que representa o cluster
     private int volume; // Corresponde ao número de soluções presentes naquele cluster
     

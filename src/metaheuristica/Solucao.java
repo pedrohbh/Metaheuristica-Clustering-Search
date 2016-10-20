@@ -23,15 +23,25 @@ public class Solucao
         custoTotal = 0;
     }
     
+    /*public Solucao pertubaSolucao()
+    {
+        
+    }*/
+    
     public void adicionaCaminhao( Caminhao novoCaminhao )
     {
         custoTotal += novoCaminhao.getCustoRota();
-        caminhoes.add(novoCaminhao);
+        getCaminhoes().add(novoCaminhao);
+    }
+    
+    public int getNumeroCaminhoes()
+    {
+        return getCaminhoes().size();
     }
     
     public void imprimeCaminhoes()
     {
-        for ( Caminhao c: caminhoes)
+        for ( Caminhao c: getCaminhoes())
         {
             c.imprimeRota();
         }
@@ -42,6 +52,13 @@ public class Solucao
      */
     public int getCustoTotal() {
         return custoTotal;
+    }
+
+    /**
+     * @return the caminhoes
+     */
+    public List<Caminhao> getCaminhoes() {
+        return caminhoes;
     }
     
 }

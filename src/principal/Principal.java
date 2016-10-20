@@ -6,6 +6,10 @@
 package principal;
 
 import grafo.Grafo;
+import metaheuristica.Cluster;
+import metaheuristica.ClusteringSearch;
+import metaheuristica.Constantes;
+import metaheuristica.Solucao;
 
 /**
  *
@@ -16,18 +20,22 @@ public class Principal
     public static void main(String[] args) 
     {
         Grafo g = new Grafo();
-        
+        ClusteringSearch cs = new ClusteringSearch();
+        Cluster novoCluster = new Cluster();
+        Solucao solucaoInicial;        
         g.abreArquivo("Entrada/A-n33-k5.vrp");
         g.leDados();
         //g.imprimeTabelaDistancias();
-        g.geraSolucaoInicial();
-        
-        //System.out.println("DDDDD: " + g.getDistancias()[ 0 ][ 6 ] );
-        /*System.out.printf("ID\tDemanda\tCordenada X\tCordenada Y%n");
-        Vertice []v = g.getVerticesGrafo();
-        for ( int i = 0; i < g.getDimensao(); i++ )
-            v[ i ].imprimeDados();*/
-        
+        solucaoInicial = g.geraSolucaoInicial();
+        novoCluster.adicionaNovaSolucao(solucaoInicial);
+        cs.adicionaCluster(novoCluster);
+        solucaoInicial = g.embaralhaSolucao(solucaoInicial);
+        solucaoInicial.imprimeCaminhoes();
+        // Criação dos Clusters inciais
+        for ( int i = 0; i < Constantes.MAX_NUM_CLUSTERS - 1; i++ )
+        {
+            
+        }
     }
     
 }

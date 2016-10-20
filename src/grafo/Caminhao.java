@@ -23,7 +23,7 @@ public class Caminhao
     public void imprimeRota()
     {
         System.out.print("Caminhão " + idCaminhao + ": ");
-        for ( Integer r: rota )
+        for ( Integer r: getRota() )
         {
             System.out.print(r + " - " );
         }
@@ -33,8 +33,8 @@ public class Caminhao
     public void adicionaRetornoARota( int [][]tabelaDeCustos )
     {
         //System.out.println("Custo atual: " + custoRota + " tabela: " + tabelaDeCustos[ rota.get(rota.size() -1) -1 ][ rota.get( 0 ) - 1 ] + " x: " + (rota.get(rota.size() -1) -1) + " y: " + (rota.get( 0 ) - 1));
-        custoRota += tabelaDeCustos[ rota.get(rota.size() -1) -1 ][ rota.get( 0 ) - 1 ];
-        rota.add( rota.get( 0 ) );
+        custoRota += tabelaDeCustos[ getRota().get(getRota().size() -1) -1 ][ getRota().get( 0 ) - 1 ];
+        getRota().add(getRota().get( 0 ) );
     }
 
     public boolean adicionaRota( Vertice v, int capacidade, int [][]tabelaCustos, List<Integer> depositos )
@@ -42,7 +42,7 @@ public class Caminhao
         if ( cargaTotal + v.getDemanda() <= capacidade )
         {
             cargaTotal += v.getDemanda();
-            if ( rota.isEmpty() )
+            if ( getRota().isEmpty() )
             {
                 int max = tabelaCustos[ 0 ][ v.getId() - 1 ];
                 int maxId = 1;
@@ -55,14 +55,14 @@ public class Caminhao
                     }
                 }
                 
-                rota.add( maxId );
-                rota.add(v.getId());
+                getRota().add( maxId );
+                getRota().add(v.getId());
                 custoRota += tabelaCustos[ maxId - 1 ][ v.getId() - 1 ];
             }
             else
             {
-                custoRota += tabelaCustos[ rota.get(rota.size() -1) -1 ][ v.getId() - 1 ];
-                rota.add(v.getId());
+                custoRota += tabelaCustos[ getRota().get(getRota().size() -1) -1 ][ v.getId() - 1 ];
+                getRota().add(v.getId());
             }
             
             
@@ -104,6 +104,13 @@ public class Caminhao
      */
     public int getCustoRota() {
         return custoRota;
+    }
+
+    /**
+     * @return the rota
+     */
+    public List<Integer> getRota() {
+        return rota;
     }
     
     

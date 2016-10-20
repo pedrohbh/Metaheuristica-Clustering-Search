@@ -2,7 +2,10 @@ package grafo;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.security.SecureRandom;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -30,6 +33,48 @@ public class Grafo
     private final List<Integer> depositos = new LinkedList<>();
     private Vertice []verticesGrafo;
     private int [][]distancias;
+    
+    public Solucao embaralhaSolucao( Solucao solucaoPadrao )
+    {
+        SecureRandom randomCaminhao = new SecureRandom();
+        int numeroCaminhao = randomCaminhao.nextInt( solucaoPadrao.getNumeroCaminhoes() );
+        List<Integer> rota = solucaoPadrao.getCaminhoes().get(numeroCaminhao).getRota();
+        int pivo = rota.get( 0 );
+        int atual = 0;
+        int i = 0;
+        Collections.shuffle( rota );
+        for ( Integer r: rota )
+        {           
+            if ( r == pivo )
+            {
+                atual = i;
+                break;
+            }
+            i++;
+        }
+        
+        Collections.swap(rota, 0, atual);
+        i = 0;
+        for ( Integer r: rota )
+        {
+            if ( i == 0 )
+            {
+                i++;
+                continue;
+            }
+            if ( r == pivo )
+            {
+                atual = i;
+                break;
+            }
+            i++;
+        }
+        Collections.swap(rota, rota.size() - 1, atual );
+        
+        
+        return solucaoPadrao;
+        
+    }
     
     
     public Solucao geraSolucaoInicial()
