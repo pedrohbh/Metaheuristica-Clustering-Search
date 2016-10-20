@@ -17,7 +17,7 @@ public class ClusteringSearch
 {
     private List<Cluster> clusters = new LinkedList<>();
     
-    public void alocaSolucaoACluster( Solucao solAtual )
+    public int alocaSolucaoACluster( Solucao solAtual )
     {
         Solucao novaSolucao = new Solucao(solAtual.getCaminhoes(), solAtual.getCustoTotal() );
         int i = 0;
@@ -36,14 +36,17 @@ public class ClusteringSearch
         }
         
         clusters.get(indiceMax).adicionaNovaSolucao(novaSolucao);
+        return indiceMax;
         //clusters.get(indiceMax)
     }
     
-    public void executarSimulatedAnneling( Grafo grafo, Solucao solucaoInicial )
+    public Solucao executarSimulatedAnneling( Grafo grafo, Solucao solucaoInicial )
     {
         double temperatura = Constantes.T0;
         int iteracoes;
+        int indiceClusterAtual;
         Solucao solucaoVinzinha = null;
+        Solucao solucaoFinal = null;
         
         while ( temperatura > Constantes.Tc )
         {
@@ -63,8 +66,27 @@ public class ClusteringSearch
                 }
             }
             temperatura = temperatura * Constantes.ALFA;
-            alocaSolucaoACluster(solucaoVinzinha);
+            indiceClusterAtual = alocaSolucaoACluster(solucaoVinzinha);
+            if ( clusters.get(indiceClusterAtual).getVolume() == Constantes.VOLUME_MAX )
+            {
+                clusters.get(indiceClusterAtual).setVolume( 0 );
+                solucaoInicial = grafo.embaralhaSolucao(clusters.get(indiceClusterAtual).getCentro());
+                if ( solucaoInicial.getCustoTotal() == clusters.get(indiceClusterAtual).getCentro().getCustoTotal() )
+                {
+                    clusters.get(indiceClusterAtual).setBeta(clusters.get(indiceClusterAtual).getBeta() + 1);
+                    if ( clusters.get(indiceClusterAtual).getBeta() == Constantes.BETA_MAX)
+                    {
+                        clusters.get(indiceClusterAtual).setBeta(0);
+                        clusters.get(indiceClusterAtual).setCentro(grafo.embaralhaSolucao(clusters.get(indiceClusterAtual).getCentro()));
+                    }
+                }
+                else
+                    clusters.get(indiceClusterAtual).setVolume(0);
+            }
+            solucaoFinal = achaMaximaSolucao();
+            
         }
+        return solucaoFinal;
     }
     
     
@@ -85,5 +107,21 @@ public class ClusteringSearch
      */
     public void setClusters(List<Cluster> clusters) {
         this.clusters = clusters;
+    }
+
+    private Solucao achaMaximaSolucao() 
+    {
+        int i = 0;
+        int indiceMenor = 0;
+        int menorCusto = clusters.get( 0 ).getCentro().getCustoTotal();
+        for ( Cluster c: clusters )
+        {
+            if ( c.getCentro().getCustoTotal() < menorCusto )
+                indiceMenor = i;
+            i++;
+        }
+        
+        return clusters.get(indiceMenor).getCentro();
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

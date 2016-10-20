@@ -30,14 +30,14 @@ public class Cluster
     {
         if ( getCentro() == null )
         {
-            centro = s0;
+            setCentro(s0);
             volume += 1;
             getSolucoes().add(s0);
         }
         else
         {
             if ( s0.getCustoTotal() < getCentro().getCustoTotal() )
-                centro = s0;
+                setCentro(s0);
             getSolucoes().add(s0);
             volume += 1;
         }       
@@ -69,6 +69,27 @@ public class Cluster
      */
     public Solucao getCentro() {
         return centro;
+    }
+
+    /**
+     * @return the beta
+     */
+    public int getBeta() {
+        return beta;
+    }
+
+    /**
+     * @param beta the beta to set
+     */
+    public void setBeta(int beta) {
+        this.beta = beta;
+    }
+
+    /**
+     * @param centro the centro to set
+     */
+    public void setCentro(Solucao centro) {
+        this.centro = centro;
     }
     
 }

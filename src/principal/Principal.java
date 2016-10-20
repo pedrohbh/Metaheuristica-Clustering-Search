@@ -24,6 +24,7 @@ public class Principal
         Cluster novoCluster = new Cluster();
         Solucao solucaoInicial;
         Solucao solucaoVizinha;
+        Solucao solucaoFinal;
         g.abreArquivo("Entrada/A-n33-k5.vrp");
         g.leDados();
         solucaoInicial = g.geraSolucaoInicial();
@@ -39,7 +40,8 @@ public class Principal
             cs.adicionaCluster(novoCluster);            
         }
         
-        
+        solucaoFinal = cs.executarSimulatedAnneling(g, solucaoInicial);
+        System.out.println("Custo solução final: " + solucaoFinal.getCustoTotal() );
         
         /*for ( Cluster c: cs.getClusters() )
         {
