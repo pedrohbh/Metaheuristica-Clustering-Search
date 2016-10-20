@@ -28,14 +28,23 @@ public class Principal
         //g.imprimeTabelaDistancias();
         solucaoInicial = g.geraSolucaoInicial();
         novoCluster.adicionaNovaSolucao(solucaoInicial);
-        cs.adicionaCluster(novoCluster);
-        solucaoInicial = g.embaralhaSolucao(solucaoInicial);
-        solucaoInicial.imprimeCaminhoes();
+        cs.adicionaCluster(novoCluster);        
+        //solucaoInicial.imprimeCaminhoes();
+        //System.out.println("Custo toal: " + solucaoInicial.getCustoTotal() );
         // Criação dos Clusters inciais
         for ( int i = 0; i < Constantes.MAX_NUM_CLUSTERS - 1; i++ )
         {
-            
+            novoCluster = new Cluster();
+            solucaoInicial = g.embaralhaSolucao(solucaoInicial);
+            novoCluster.adicionaNovaSolucao(solucaoInicial);
+            cs.adicionaCluster(novoCluster);            
         }
+        for ( Cluster c: cs.getClusters() )
+        {
+            c.getSolucoes().get(0).imprimeCaminhoes();
+            System.out.println("Custo toal: " + c.getSolucoes().get(0).getCustoTotal() );
+        }
+        //System.out.println("CS: " + cs.getClusters().size() );
     }
     
 }

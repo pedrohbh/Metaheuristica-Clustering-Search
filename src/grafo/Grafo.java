@@ -26,7 +26,7 @@ public class Grafo
 {
     
     private static Scanner input;
-    
+    private static SecureRandom randomCaminhao = new SecureRandom();
     private String nomeInstancia; // Nome da instância do problema
     private int dimensao;
     private int capacidade;
@@ -35,13 +35,15 @@ public class Grafo
     private int [][]distancias;
     
     public Solucao embaralhaSolucao( Solucao solucaoPadrao )
-    {
-        SecureRandom randomCaminhao = new SecureRandom();
-        int numeroCaminhao = randomCaminhao.nextInt( solucaoPadrao.getNumeroCaminhoes() );
-        List<Integer> rota = solucaoPadrao.getCaminhoes().get(numeroCaminhao).getRota();
+    {   
+        Solucao sNova = new Solucao( solucaoPadrao.getCaminhoes(), solucaoPadrao.getCustoTotal() );
+        
+        int numeroCaminhao = randomCaminhao.nextInt( sNova.getNumeroCaminhoes() );
+        List<Integer> rota = sNova.getCaminhoes().get(numeroCaminhao).getRota();
         int pivo = rota.get( 0 );
         int atual = 0;
         int i = 0;
+        int custoRota = sNova.getCaminhoes().get(numeroCaminhao).getCustoRota();
         Collections.shuffle( rota );
         for ( Integer r: rota )
         {           
@@ -70,9 +72,13 @@ public class Grafo
             i++;
         }
         Collections.swap(rota, rota.size() - 1, atual );
-        
-        
-        return solucaoPadrao;
+        custoRota = sNova.getCustoTotal() - custoRota;
+        for ( int j = 0; j < rota.size() - 1; j++ )
+        {
+            custoRota += distancias[ rota.get( j ) - 1 ][ rota.get( j + 1 ) - 1 ];
+        }
+        sNova.setCustoTotal(custoRota);
+        return sNova;
         
     }
     

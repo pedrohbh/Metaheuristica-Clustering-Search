@@ -19,6 +19,20 @@ public class ClusteringSearch
     
     public void adicionaCluster( Cluster novoCluster )
     {
-        clusters.add(novoCluster);
+        getClusters().add(novoCluster);
+    }
+
+    /**
+     * @return the clusters
+     */
+    public List<Cluster> getClusters() {
+        return clusters;
+    }
+
+    /**
+     * @param clusters the clusters to set
+     */
+    public void setClusters(List<Cluster> clusters) {
+        this.clusters = clusters;
     }
 }

@@ -30,13 +30,13 @@ public class Cluster
         {
             centro = s0;
             volume += 1;
-            solucoes.add(s0);
+            getSolucoes().add(s0);
         }
         else
         {
             if ( s0.getCustoTotal() < centro.getCustoTotal() )
                 centro = s0;
-            solucoes.add(s0);
+            getSolucoes().add(s0);
         }       
         
     }
@@ -52,6 +52,13 @@ public class Cluster
      */
     public void setVolume(int volume) {
         this.volume = volume;
+    }
+
+    /**
+     * @return the solucoes
+     */
+    public List<Solucao> getSolucoes() {
+        return solucoes;
     }
     
 }
