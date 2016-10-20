@@ -24,7 +24,7 @@ public class Principal
         Cluster novoCluster = new Cluster();
         Solucao solucaoInicial;
         Solucao solucaoVizinha;
-        Solucao solucaoFinal;
+        Solucao solucaoFinal = new Solucao();
         g.abreArquivo("Entrada/A-n33-k5.vrp");
         g.leDados();
         solucaoInicial = g.geraSolucaoInicial();

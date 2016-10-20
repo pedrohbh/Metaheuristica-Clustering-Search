@@ -71,10 +71,21 @@ public class Grafo
             i++;
         }
         Collections.swap(rota, rota.size() - 1, atual );
-        custoRota = sNova.getCustoTotal() - custoRota;
-        for ( int j = 0; j < rota.size() - 1; j++ )
+        // DESCOMENTE ABAIXO EM CASO DE EMERGENCIA
+        //custoRota = Math.abs(sNova.getCustoTotal() - custoRota);
+        /*if ( custoRota < 0 )
+            System.out.println("Ops!");*/
+        custoRota = 0;
+        for (Caminhao c : sNova.getCaminhoes() )
         {
-            custoRota += distancias[ rota.get( j ) - 1 ][ rota.get( j + 1 ) - 1 ];
+            for ( int j = 0; j < c.getRota().size() - 1; j++ )
+            {
+                custoRota += distancias[ c.getRota().get( j ) - 1 ][ c.getRota().get( j + 1 ) - 1 ];
+            }
+            /*for ( int j = 0; j < rota.size() - 1; j++ )
+            {
+                custoRota += distancias[ rota.get( j ) - 1 ][ rota.get( j + 1 ) - 1 ];
+            }*/
         }
         sNova.setCustoTotal(custoRota);
         return sNova;
