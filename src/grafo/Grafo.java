@@ -232,6 +232,7 @@ public class Grafo
             }
             
             calculaDistancias();
+            input.close();
         }
         catch ( NoSuchElementException e )
         {

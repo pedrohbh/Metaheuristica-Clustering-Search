@@ -52,7 +52,7 @@ public class Principal
     }
     
     
-    public void replicaTestadora( String arquivoEntrada )
+    public Solucao replicaTestadora( String arquivoEntrada )
     {
         Grafo g = new Grafo();
         ClusteringSearch cs = new ClusteringSearch();
@@ -76,7 +76,8 @@ public class Principal
         }
         
         solucaoFinal = cs.executarSimulatedAnneling(g, solucaoInicial);
-        System.out.println("Custo solução final: " + solucaoFinal.getCustoTotal() );
+        //System.out.println("Custo solução final: " + solucaoFinal.getCustoTotal() );
+        return solucaoFinal;
     }
     
 }
