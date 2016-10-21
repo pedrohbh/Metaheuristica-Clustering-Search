@@ -80,7 +80,7 @@ public class Testador
         //int i = 0;
         //Principal p = new Principal();
         //p.replicaTestadora("Entrada/A-n33-k5.vrp");
-        try ( Stream<Path> paths = Files.walk(Paths.get("/home/administrador/Documentos/Metaheurística/Implementação/Exemplo/A-VRP")))
+        try ( Stream<Path> paths = Files.walk(Paths.get("/home/administrador/Documentos/Metaheurística/Implementação/instances-CVRP/Augerat/A-VRP")))
         {
             paths.forEach( filePath -> 
             {
@@ -120,6 +120,7 @@ public class Testador
                     desvioPadrao = Math.sqrt(desvioPadrao);
                     adicionaDados(filePath.getFileName().toString(), mediaSolucao, melhorSolucao, piorSolucao, desvioPadrao );
                     //filePath.
+                    resultados.clear();
                     System.out.println(filePath.getFileName());
                     
                 }
