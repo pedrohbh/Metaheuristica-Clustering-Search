@@ -1,0 +1,4 @@
+instâncias;valorMédio;melhor;pior;desvioPadrão;tempo(ms)
+F-n135-k7.vrp;5369;5369;5369;0,00;28638
+F-n45-k4.vrp;2017;1884;2099;62,15;12721
+F-n72-k4.vrp;1075;1042;1115;24,04;16636
